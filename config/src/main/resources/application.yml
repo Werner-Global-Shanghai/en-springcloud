@@ -1,8 +1,13 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-    healthcheck:
-      enabled: true
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: file:/Users/Jerry/Documents/workspace/en-springcloud/config/src/main/resources/share
+  profiles:
+     active: native
+  application:
+    name: config
+
+server:
+  port: 8888
