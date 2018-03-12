@@ -1,21 +1,21 @@
-server:
-  servlet:
-    context-path: /api/manage
-  port: 8762
-
-spring:
-    application:
-        name: management-service
-    devtools:
-        restart:
-            enabled: false
-        livereload:
-            enabled: false
-    jackson:
-        serialization.indent_output: true
+#server:
+#  servlet:
+#    context-path: /api/manage
+#  port: 8762
+#
+#spring:
+#    application:
+#        name: management-service
+#    devtools:
+#        restart:
+#            enabled: false
+#        livereload:
+#            enabled: false
+#    jackson:
+#        serialization.indent_output: true
 #    datasource:
 #        type: com.zaxxer.hikari.HikariDataSource
-#        url: jdbc:mysql://jerry.wernerds.net:3306/event?useUnicode=true&characterEncoding=utf8&useSSL=false&verifyServerCertificate=false
+#        url: jdbc:mysql://localhost:3306/event?useUnicode=true&characterEncoding=utf8&useSSL=false&verifyServerCertificate=false
 #        name:
 #        username: root
 #        password: intellijgentchart

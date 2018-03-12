@@ -1,6 +1,6 @@
 spring:
   application:
-    name: management-service
+    name: gateway
   cloud:
     config:
       uri: http://jerry.wernerds.net:8888
