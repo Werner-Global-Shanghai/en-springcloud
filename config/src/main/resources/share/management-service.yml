@@ -4,6 +4,8 @@ server:
   port: 8762
 
 spring:
+    application:
+        name: management-service
     devtools:
         restart:
             enabled: false
