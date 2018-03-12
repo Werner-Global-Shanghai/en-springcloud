@@ -1,8 +1,0 @@
-eureka:
-  instance:
-    prefer-ip-address: true
-  client:
-    serviceUrl:
-      defaultZone: http://jerry.wernerds.net:8761/eureka/
-    healthcheck:
-      enabled: true
