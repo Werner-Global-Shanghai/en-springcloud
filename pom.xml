@@ -11,6 +11,7 @@
 	<modules>
 		<module>management-service</module>
 		<module>management-api</module>
+		<module>event-service</module>
 	</modules>
 
 </project>

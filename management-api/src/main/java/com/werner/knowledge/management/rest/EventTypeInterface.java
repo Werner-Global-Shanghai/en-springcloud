@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -19,8 +18,6 @@ import java.util.Optional;
 /**
  * REST controller for managing EventType.
  */
-@RestController
-@RequestMapping("/")
 public interface EventTypeInterface {
 
     /**
@@ -60,8 +57,11 @@ public interface EventTypeInterface {
      * @param id the id of the eventType to retrieve
      * @return the ResponseEntity with status 200 (OK) and with body the eventType, or with status 404 (Not Found)
      */
-    @GetMapping("/event-types/{id}")
-    Optional<EventType> getEventType(@PathVariable Long id);
+    @GetMapping("/event-types/byid/{id}")
+    Optional<EventType> getEventType(@PathVariable("id") Long id);
+
+    @GetMapping("/event-types/bycode/{code}")
+    Optional<EventType> getEventTypeByCode(@RequestHeader("code") String code);
 
     /**
      * DELETE  /event-types/:id : delete the "id" eventType.
@@ -70,5 +70,5 @@ public interface EventTypeInterface {
      * @return the ResponseEntity with status 200 (OK)
      */
     @DeleteMapping("/event-types/{id}")
-    ResponseEntity<Void> deleteEventType(@PathVariable Long id);
+    ResponseEntity<Void> deleteEventType(@PathVariable("id") Long id);
 }

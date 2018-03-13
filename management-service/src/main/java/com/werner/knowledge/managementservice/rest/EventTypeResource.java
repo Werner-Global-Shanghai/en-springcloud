@@ -12,13 +12,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
-public class EventTypeResource implements EventTypeInterface{
+@RestController
+@RequestMapping("/")
+public class EventTypeResource implements EventTypeInterface {
 
     private final Logger log = LoggerFactory.getLogger(EventTypeResource.class);
 
@@ -51,12 +55,16 @@ public class EventTypeResource implements EventTypeInterface{
         return new ResponseEntity<>(page.getContent(), HttpStatus.OK);
     }
 
-    public Optional<EventType> getEventType(@PathVariable Long id) {
+    public Optional<EventType> getEventType(@PathVariable("id") Long id) {
         log.debug("REST request to get EventType : {}", id);
         return eventTypeRepository.findById(id);
     }
 
-    public ResponseEntity<Void> deleteEventType(@PathVariable Long id) {
+    public Optional<EventType> getEventTypeByCode(@PathVariable("code") String code) {
+        return eventTypeRepository.findByName(code);
+    }
+
+    public ResponseEntity<Void> deleteEventType(@PathVariable("id") Long id) {
         log.debug("REST request to delete EventType : {}", id);
         eventTypeRepository.deleteById(id);
         return ResponseEntity.ok().build();
