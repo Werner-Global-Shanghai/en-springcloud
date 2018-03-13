@@ -25,7 +25,9 @@ public class Event implements Serializable {
     @Column(name = "event_type_code")
     private String eventTypeCode;
 
-    // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
+    @Column(name = "created_by")
+    private String createdBy;
+
     public Long getId() {
         return id;
     }
@@ -59,7 +61,14 @@ public class Event implements Serializable {
     public void setEventTypeCode(String eventTypeCode) {
         this.eventTypeCode = eventTypeCode;
     }
-    // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
 
     @Override
     public boolean equals(Object o) {

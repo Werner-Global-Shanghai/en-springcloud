@@ -22,8 +22,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.net.InetAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -62,6 +64,15 @@ public class EventResource {
         event.setCorrelationId(UUID.randomUUID().toString());
 
         Optional<EventType> eventType = eventTypeResourceClient.getEventTypeByCode(event.getEventTypeCode());
+
+        try {
+            String createdBy = InetAddress.getLocalHost().getCanonicalHostName();
+            event.setCreatedBy(createdBy);
+
+        } catch (UnknownHostException e) {
+
+            log.warn(e.getMessage());
+        }
 
         if (!eventType.isPresent()) {
             throw new RuntimeException("fatal error: the event type not exists!");
