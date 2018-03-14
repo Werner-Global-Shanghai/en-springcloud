@@ -1,6 +1,7 @@
 package com.werner.knowledge.event.model;
 
 
+
 import javax.persistence.*;
 
 import java.io.Serializable;

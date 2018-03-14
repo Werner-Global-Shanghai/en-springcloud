@@ -2,6 +2,8 @@ package com.werner.knowledge.event.rest;
 
 import com.werner.knowledge.event.EventTypeResourceClient;
 import com.werner.knowledge.event.model.Event;
+import com.werner.knowledge.event.model.EventLog;
+import com.werner.knowledge.event.repository.EventLogRepository;
 import com.werner.knowledge.event.repository.EventRepository;
 import com.werner.knowledge.event.rest.util.HeaderUtil;
 import com.werner.knowledge.event.rest.util.PaginationUtil;
@@ -42,12 +44,14 @@ public class EventResource {
     private static final String ENTITY_NAME = "event";
 
     private final EventRepository eventRepository;
+    private final EventLogRepository eventLogRepository;
 
     @Autowired
     private EventTypeResourceClient eventTypeResourceClient;
 
-    public EventResource(EventRepository eventRepository) {
+    public EventResource(EventRepository eventRepository, EventLogRepository eventLogRepository) {
         this.eventRepository = eventRepository;
+        this.eventLogRepository = eventLogRepository;
     }
 
     /**
@@ -79,6 +83,13 @@ public class EventResource {
         }
 
         Event result = eventRepository.save(event);
+
+        EventLog log = new EventLog();
+        log.setStatus("Created");
+        log.setCorrelationId(result.getCorrelationId());
+        log.setMessage("New message created");
+
+        eventLogRepository.save(log);
 
         return ResponseEntity.created(new URI("/api/events/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
