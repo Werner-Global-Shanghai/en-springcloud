@@ -82,6 +82,13 @@ public class EventResource {
             throw new RuntimeException("fatal error: the event type not exists!");
         }
 
+        boolean managementServiceDown = false;
+        if (eventType.get().getName().equalsIgnoreCase("MANAGEMENT_SERVICE_DOWN")) {
+
+            managementServiceDown = true;
+            log.warn("Management service is down.");
+        }
+
         Event result = eventRepository.save(event);
 
         EventLog log = new EventLog();
@@ -89,6 +96,10 @@ public class EventResource {
         log.setCorrelationId(result.getCorrelationId());
         log.setMessage("New message created");
 
+        if (managementServiceDown) {
+            log.setStatus("Unknown Type Event");
+            log.setMessage("Event management service is down.");
+        }
         eventLogRepository.save(log);
 
         return ResponseEntity.created(new URI("/api/events/" + result.getId()))
